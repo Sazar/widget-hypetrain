@@ -17,7 +17,7 @@ const levelEl = document.getElementById('ht-level');
 const timerEl = document.getElementById('ht-timer');
 const pctEl   = document.getElementById('ht-pct');
 
-// ── Couleurs depuis les Fields ──────────────────
+// ── Couleurs depuis les Fields ──────────────────────────
 function applyColors(fields) {
   const s = document.documentElement.style;
   s.setProperty('--bar-color',     fields.barColor    || '#9147FF');
@@ -28,15 +28,15 @@ function applyColors(fields) {
   }
 }
 
-// ── Formatage mm:ss ─────────────────────────────
+// ── Formatage mm:ss ─────────────────────────────────────
 function fmt(s) {
   return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
 }
 
-// ── Affichage ───────────────────────────────────
+// ── Affichage ───────────────────────────────────────────
 function render() {
-  fill.style.width  = Math.min(Math.max(state.percent, 0), 100) + '%';
-  pctEl.textContent = Math.round(state.percent) + '%';
+  fill.style.width    = Math.min(Math.max(state.percent, 0), 100) + '%';
+  pctEl.textContent   = Math.round(state.percent) + '%';
   timerEl.textContent = fmt(state.timeLeft);
   timerEl.classList.toggle('urgent', state.timeLeft <= 30);
 }
@@ -50,7 +50,7 @@ function setLevel(lvl) {
   }
 }
 
-// ── Timer ───────────────────────────────────────
+// ── Timer ───────────────────────────────────────────────
 function startTimer() {
   clearInterval(state.timerInterval);
   state.timerInterval = setInterval(() => {
@@ -64,17 +64,17 @@ function startTimer() {
   }, 1000);
 }
 
-// ── Show / Hide ─────────────────────────────────
+// ── Show / Hide ─────────────────────────────────────────
 function show() {
-  widget.classList.replace('hidden', 'visible') || widget.classList.add('visible');
   widget.classList.remove('hidden');
+  widget.classList.add('visible');
 }
 function hide() {
-  widget.classList.replace('visible', 'hidden') || widget.classList.add('hidden');
   widget.classList.remove('visible');
+  widget.classList.add('hidden');
 }
 
-// ── Lifecycle ───────────────────────────────────
+// ── Lifecycle ───────────────────────────────────────────
 function startTrain(level, percent) {
   state.active   = true;
   state.level    = level   || 1;
@@ -106,28 +106,35 @@ function endTrain() {
       state.level    = 1;
       state.percent  = 0;
       state.timeLeft = state.totalTime;
-      fill.style.width        = '0%';
-      levelEl.textContent     = '1';
-      pctEl.textContent       = '0%';
-      timerEl.textContent     = fmt(state.totalTime);
+      fill.style.width    = '0%';
+      levelEl.textContent = '1';
+      pctEl.textContent   = '0%';
+      timerEl.textContent = fmt(state.totalTime);
       timerEl.classList.remove('urgent');
     }, 500);
   }, 3000);
 }
 
-// ── Mode apercu ─────────────────────────────────
+// ── Mode apercu (~17s de demo) ──────────────────────────
 function runPreview() {
-  endTrain();
-  setTimeout(() => startTrain(1, 15),              800);
-  setTimeout(() => updateTrain(1, 45),            2800);
-  setTimeout(() => updateTrain(1, 82),            4800);
-  setTimeout(() => updateTrain(2,  8),            6300);
-  setTimeout(() => updateTrain(2, 55),            8300);
-  setTimeout(() => updateTrain(3, 25),           10800);
-  setTimeout(() => endTrain(),                   13000);
+  // Reset silencieux
+  clearInterval(state.timerInterval);
+  state.active = false;
+  hide();
+
+  setTimeout(() => startTrain(1, 10),        500);
+  setTimeout(() => updateTrain(1, 30),      2500);
+  setTimeout(() => updateTrain(1, 55),      4500);
+  setTimeout(() => updateTrain(1, 80),      6500);
+  setTimeout(() => updateTrain(2,  5),      8000);  // niveau 2
+  setTimeout(() => updateTrain(2, 35),     10000);
+  setTimeout(() => updateTrain(2, 65),     12000);
+  setTimeout(() => updateTrain(2, 90),     14000);
+  setTimeout(() => updateTrain(3, 20),     15500);  // niveau 3
+  setTimeout(() => endTrain(),             17500);
 }
 
-// ── Listeners StreamElements ────────────────────
+// ── Listeners StreamElements ────────────────────────────
 window.addEventListener('onWidgetLoad', obj => {
   const f = obj.detail.fieldData;
   applyColors(f);
@@ -138,11 +145,11 @@ window.addEventListener('onEventReceived', obj => {
   const { listener, event } = obj.detail;
 
   if (listener === 'hypetrain-progress') {
-    const level   = event.level || 1;
-    const value   = event.progress?.value   ?? event.percent ?? 0;
-    const goal    = event.progress?.goal    ?? 100;
-    const pct     = goal > 0 ? Math.round(value / goal * 100) : value;
-    const tLeft   = event.time_left ?? undefined;
+    const level = event.level || 1;
+    const value = event.progress?.value ?? event.percent ?? 0;
+    const goal  = event.progress?.goal  ?? 100;
+    const pct   = goal > 0 ? Math.round(value / goal * 100) : value;
+    const tLeft = event.time_left ?? undefined;
     state.active ? updateTrain(level, pct, tLeft) : startTrain(level, pct);
     return;
   }
