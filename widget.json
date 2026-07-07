@@ -6,8 +6,8 @@
   },
   "barColorEnd": {
     "type": "colorpicker",
-    "label": "Couleur secondaire (gradient fin de barre)",
-    "value": "#FF6B6B"
+    "label": "Couleur secondaire (gradient)",
+    "value": "#BF94FF"
   },
   "trainDuration": {
     "type": "number",
@@ -16,7 +16,7 @@
   },
   "previewMode": {
     "type": "checkbox",
-    "label": "Mode apercu (simule un Hype Train au chargement)",
+    "label": "Mode apercu (simule un Hype Train)",
     "value": false
   }
 }
