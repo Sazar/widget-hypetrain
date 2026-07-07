@@ -1,0 +1,17 @@
+{
+  "barColor": {
+    "type": "colorpicker",
+    "label": "Couleur principale de la barre",
+    "value": "#9147FF"
+  },
+  "barColorEnd": {
+    "type": "colorpicker",
+    "label": "Couleur secondaire (gradient fin de barre)",
+    "value": "#FF6B6B"
+  },
+  "trainDuration": {
+    "type": "number",
+    "label": "Duree du Hype Train (secondes)",
+    "value": 300
+  }
+}
