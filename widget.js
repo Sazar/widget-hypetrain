@@ -17,40 +17,41 @@ const levelEl = document.getElementById('ht-level');
 const timerEl = document.getElementById('ht-timer');
 const pctEl   = document.getElementById('ht-pct');
 
-// ── Couleurs depuis les Fields ──────────────────────────
+// --- Couleurs depuis les Fields ---
 function applyColors(fields) {
-  const s = document.documentElement.style;
-  s.setProperty('--bar-color',     fields.barColor    || '#9147FF');
-  s.setProperty('--bar-color-end', fields.barColorEnd || '#BF94FF');
+  document.documentElement.style.setProperty('--bar-color', fields.barColor || '#9147FF');
   if (fields.trainDuration) {
     state.totalTime = parseInt(fields.trainDuration) || 300;
     state.timeLeft  = state.totalTime;
   }
 }
 
-// ── Formatage mm:ss ─────────────────────────────────────
+// --- Formatage mm:ss ---
 function fmt(s) {
-  return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+  return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
 }
 
-// ── Affichage ───────────────────────────────────────────
+// --- Affichage ---
 function render() {
-  fill.style.width    = Math.min(Math.max(state.percent, 0), 100) + '%';
-  pctEl.textContent   = Math.round(state.percent) + '%';
+  const pct = Math.min(Math.max(state.percent, 0), 100);
+  // La barre fill prend `pct`% de la largeur totale, avec un min de 80px pour afficher LVL+timer
+  fill.style.width    = pct + '%';
+  pctEl.textContent   = Math.round(pct) + '%';
   timerEl.textContent = fmt(state.timeLeft);
   timerEl.classList.toggle('urgent', state.timeLeft <= 30);
 }
 
 function setLevel(lvl) {
-  if (parseInt(levelEl.textContent) !== lvl) {
-    levelEl.textContent = lvl;
+  const label = 'LVL ' + lvl;
+  if (levelEl.textContent !== label) {
+    levelEl.textContent = label;
     levelEl.classList.remove('level-pop');
     void levelEl.offsetWidth;
     levelEl.classList.add('level-pop');
   }
 }
 
-// ── Timer ───────────────────────────────────────────────
+// --- Timer ---
 function startTimer() {
   clearInterval(state.timerInterval);
   state.timerInterval = setInterval(() => {
@@ -64,17 +65,11 @@ function startTimer() {
   }, 1000);
 }
 
-// ── Show / Hide ─────────────────────────────────────────
-function show() {
-  widget.classList.remove('hidden');
-  widget.classList.add('visible');
-}
-function hide() {
-  widget.classList.remove('visible');
-  widget.classList.add('hidden');
-}
+// --- Show / Hide ---
+function show() { widget.classList.remove('hidden'); widget.classList.add('visible'); }
+function hide() { widget.classList.remove('visible'); widget.classList.add('hidden'); }
 
-// ── Lifecycle ───────────────────────────────────────────
+// --- Lifecycle ---
 function startTrain(level, percent) {
   state.active   = true;
   state.level    = level   || 1;
@@ -107,7 +102,7 @@ function endTrain() {
       state.percent  = 0;
       state.timeLeft = state.totalTime;
       fill.style.width    = '0%';
-      levelEl.textContent = '1';
+      levelEl.textContent = 'LVL 1';
       pctEl.textContent   = '0%';
       timerEl.textContent = fmt(state.totalTime);
       timerEl.classList.remove('urgent');
@@ -115,26 +110,24 @@ function endTrain() {
   }, 3000);
 }
 
-// ── Mode apercu (~17s de demo) ──────────────────────────
+// --- Mode apercu (~17s) ---
 function runPreview() {
-  // Reset silencieux
   clearInterval(state.timerInterval);
   state.active = false;
   hide();
-
-  setTimeout(() => startTrain(1, 10),        500);
-  setTimeout(() => updateTrain(1, 30),      2500);
-  setTimeout(() => updateTrain(1, 55),      4500);
-  setTimeout(() => updateTrain(1, 80),      6500);
-  setTimeout(() => updateTrain(2,  5),      8000);  // niveau 2
-  setTimeout(() => updateTrain(2, 35),     10000);
-  setTimeout(() => updateTrain(2, 65),     12000);
-  setTimeout(() => updateTrain(2, 90),     14000);
-  setTimeout(() => updateTrain(3, 20),     15500);  // niveau 3
-  setTimeout(() => endTrain(),             17500);
+  setTimeout(() => startTrain(1, 15),       500);
+  setTimeout(() => updateTrain(1, 35),     2500);
+  setTimeout(() => updateTrain(1, 58),     4500);
+  setTimeout(() => updateTrain(1, 80),     6500);
+  setTimeout(() => updateTrain(2,  8),     8000);
+  setTimeout(() => updateTrain(2, 38),    10000);
+  setTimeout(() => updateTrain(2, 69),    12000);
+  setTimeout(() => updateTrain(2, 91),    14000);
+  setTimeout(() => updateTrain(3, 22),    15500);
+  setTimeout(() => endTrain(),            17500);
 }
 
-// ── Listeners StreamElements ────────────────────────────
+// --- Listeners StreamElements ---
 window.addEventListener('onWidgetLoad', obj => {
   const f = obj.detail.fieldData;
   applyColors(f);

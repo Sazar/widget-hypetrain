@@ -1,13 +1,8 @@
 {
   "barColor": {
     "type": "colorpicker",
-    "label": "Couleur principale de la barre",
+    "label": "Couleur de la barre",
     "value": "#9147FF"
-  },
-  "barColorEnd": {
-    "type": "colorpicker",
-    "label": "Couleur secondaire (gradient)",
-    "value": "#BF94FF"
   },
   "trainDuration": {
     "type": "number",
