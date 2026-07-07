@@ -32,7 +32,6 @@ function applyFieldColors(fields) {
   root.setProperty('--bar-color',     barColor);
   root.setProperty('--bar-color-end', barColorEnd);
 
-  // Couleur dynamique du badge et de sa box-shadow
   const hexToRgb = (hex) => {
     const r = parseInt(hex.slice(1,3), 16);
     const g = parseInt(hex.slice(3,5), 16);
@@ -52,6 +51,32 @@ function applyFieldColors(fields) {
   if (fields.trainDuration) {
     state.totalTime = parseInt(fields.trainDuration) || 300;
   }
+}
+
+// --- Mode apercu : simule un hype train complet ---
+function runPreview() {
+  // Reset propre avant de demarrer
+  clearInterval(state.timerInterval);
+  clearInterval(state.particleInterval);
+  state.active   = false;
+  state.level    = 1;
+  state.percent  = 0;
+  state.timeLeft = state.totalTime;
+  bar.style.width       = '0%';
+  levelEl.textContent   = '1';
+  percentEl.textContent = '0%';
+  timerEl.classList.remove('urgent');
+
+  // Sequence de demo
+  setTimeout(() => startHypeTrain(1, 10),              500);
+  setTimeout(() => updateProgress(1, 35),             2500);
+  setTimeout(() => updateProgress(1, 68),             4500);
+  setTimeout(() => updateProgress(1, 95),             6500);
+  setTimeout(() => updateProgress(2,  5),             8000);  // passage niveau 2
+  setTimeout(() => updateProgress(2, 42),            10000);
+  setTimeout(() => updateProgress(2, 80),            12000);
+  setTimeout(() => updateProgress(3, 20),            14000);  // passage niveau 3
+  setTimeout(() => endHypeTrain(),                   16000);
 }
 
 // --- Formate mm:ss ---
@@ -170,7 +195,6 @@ function endHypeTrain() {
   clearInterval(state.particleInterval);
   state.active = false;
 
-  // Barre a 100% brievement, puis disparait
   state.percent = 100;
   updateDisplay();
 
@@ -196,13 +220,17 @@ function endHypeTrain() {
 window.addEventListener('onWidgetLoad', (obj) => {
   const fieldData = obj.detail.fieldData;
   applyFieldColors(fieldData);
+
+  // Lance la simulation si le mode apercu est active
+  if (fieldData.previewMode === true || fieldData.previewMode === 'true') {
+    runPreview();
+  }
 });
 
 window.addEventListener('onEventReceived', (obj) => {
   const listener = obj.detail.listener;
   const event    = obj.detail.event;
 
-  // --- Evenement progress hype train ---
   if (listener === 'hypetrain-progress') {
     const level    = event.level || 1;
     const value    = (event.progress && event.progress.value  != null) ? event.progress.value  : (event.percent || 0);
@@ -218,13 +246,11 @@ window.addEventListener('onEventReceived', (obj) => {
     return;
   }
 
-  // --- Fin hype train ---
   if (listener === 'hypetrain-end') {
     endHypeTrain();
     return;
   }
 
-  // --- Support API Twitch EventSub (event wrapper) ---
   if (listener === 'event') {
     if (event.type === 'HypeTrainProgress') {
       const d = event.data || {};
@@ -240,18 +266,3 @@ window.addEventListener('onEventReceived', (obj) => {
     }
   }
 });
-
-// ============================================
-// TEST dans le navigateur (hors StreamElements)
-// Decommentez le bloc ci-dessous pour tester :
-// ============================================
-/*
-setTimeout(() => {
-  startHypeTrain(1, 20);
-  setTimeout(() => updateProgress(1, 55),  3000);
-  setTimeout(() => updateProgress(2,  5),  6000);
-  setTimeout(() => updateProgress(2, 78),  9000);
-  setTimeout(() => updateProgress(3, 30), 12000);
-  setTimeout(() => endHypeTrain(),         15000);
-}, 1000);
-*/

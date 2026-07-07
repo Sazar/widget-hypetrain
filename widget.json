@@ -13,5 +13,10 @@
     "type": "number",
     "label": "Duree du Hype Train (secondes)",
     "value": 300
+  },
+  "previewMode": {
+    "type": "checkbox",
+    "label": "Mode apercu (simule un Hype Train au chargement)",
+    "value": false
   }
 }
