@@ -11,41 +11,39 @@ body { background: transparent; overflow: hidden; }
 #ht-widget.hidden  { opacity: 0; transform: translateY(12px); pointer-events: none; }
 #ht-widget.visible { opacity: 1; transform: translateY(0);    pointer-events: auto; }
 
-/* --- Bloc info : superpose sur la barre, meme hauteur --- */
+/* --- Bloc info : superpose sur la barre --- */
 .ht-info {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100px;
-  height: 72px; /* identique a .ht-bar */
+  height: 72px;
+  width: 72px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
   z-index: 20;
   pointer-events: none;
 }
 
-/* Badge : meme hauteur ET meme border-radius que la barre */
+/* Badge : carré arrondi compact, meme border-radius que la barre */
 .ht-badge {
-  width: 100%;
-  height: 72px; /* identique a .ht-bar */
+  width: 60px;
+  height: 52px;
   background: var(--bg-color, #111114);
-  border-radius: 14px; /* identique a .ht-bar */
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  padding: 0 10px;
+  gap: 4px;
+  padding: 0 6px;
 }
 
 .ht-level {
   font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   color: #fff;
-  letter-spacing: .05em;
+  letter-spacing: .04em;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
@@ -53,10 +51,10 @@ body { background: transparent; overflow: hidden; }
 
 .ht-timer {
   font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
-  font-size: 17px;
+  font-size: 14px;
   color: rgba(255,255,255,.85);
   font-variant-numeric: tabular-nums;
-  letter-spacing: .06em;
+  letter-spacing: .04em;
   line-height: 1;
   white-space: nowrap;
   transition: color .3s;
