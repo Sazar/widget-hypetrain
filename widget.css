@@ -54,18 +54,22 @@ body { background: transparent; overflow: hidden; }
   pointer-events: none;
 }
 
+/* Badge : large et plat, exactement comme la barre principale */
 .ht-badge {
   background: var(--bg-color, #111114);
   border-radius: 14px;
-  padding: 5px 12px;
+  padding: 6px 18px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  /* ratio large/peu haut = meme proportion que la barre */
+  min-width: 80px;
+  height: 28px;
 }
 
 .ht-level {
   font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   color: #fff;
   letter-spacing: .05em;
   text-transform: uppercase;
