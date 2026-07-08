@@ -40,6 +40,7 @@ body { background: transparent; overflow: hidden; }
   background: linear-gradient(180deg, rgba(255,255,255,.13) 0%, transparent 100%);
 }
 
+/* Groupe centre verticalement, badge et timer alignes au centre */
 .ht-left {
   position: absolute;
   top: 50%;
@@ -47,7 +48,7 @@ body { background: transparent; overflow: hidden; }
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 4px;
   z-index: 10;
   pointer-events: none;
@@ -55,7 +56,7 @@ body { background: transparent; overflow: hidden; }
 
 .ht-badge {
   background: var(--bg-color, #111114);
-  border-radius: 8px;
+  border-radius: 14px;
   padding: 6px 18px;
   display: inline-flex;
   align-items: center;
@@ -82,7 +83,6 @@ body { background: transparent; overflow: hidden; }
   letter-spacing: .05em;
   line-height: 1;
   white-space: nowrap;
-  padding-left: 4px;
   text-shadow: 0 1px 6px rgba(0,0,0,.5);
   transition: color .3s;
 }
