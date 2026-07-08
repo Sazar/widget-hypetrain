@@ -1,7 +1,6 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: transparent; overflow: hidden; }
 
-/* Widget : conteneur relatif global */
 #ht-widget {
   position: fixed;
   bottom: 30px;
@@ -12,35 +11,39 @@ body { background: transparent; overflow: hidden; }
 #ht-widget.hidden  { opacity: 0; transform: translateY(12px); pointer-events: none; }
 #ht-widget.visible { opacity: 1; transform: translateY(0);    pointer-events: auto; }
 
-/* --- Badge LVL + timer : positionne par-dessus la barre via position absolute sur le widget --- */
+/* --- Bloc info : superpose sur la barre, meme hauteur --- */
 .ht-info {
   position: absolute;
-  /* aligne verticalement au centre de la barre (height 72px) */
   top: 0;
-  left: 8px;
-  height: 72px;
+  left: 0;
+  width: 100px;
+  height: 72px; /* identique a .ht-bar */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 5px;
   z-index: 20;
   pointer-events: none;
 }
 
-/* Badge : meme border-radius que la barre, fond = couleur de fond barre, SANS overflow:hidden au-dessus */
+/* Badge : meme hauteur ET meme border-radius que la barre */
 .ht-badge {
+  width: 100%;
+  height: 72px; /* identique a .ht-bar */
   background: var(--bg-color, #111114);
-  border-radius: var(--bar-radius, 14px);
-  padding: 6px 14px;
+  border-radius: 14px; /* identique a .ht-bar */
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 5px;
+  padding: 0 10px;
 }
 
 .ht-level {
   font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
-  font-size: 17px;
+  font-size: 18px;
   color: #fff;
   letter-spacing: .05em;
   text-transform: uppercase;
@@ -50,8 +53,8 @@ body { background: transparent; overflow: hidden; }
 
 .ht-timer {
   font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
-  font-size: 13px;
-  color: rgba(255,255,255,.8);
+  font-size: 17px;
+  color: rgba(255,255,255,.85);
   font-variant-numeric: tabular-nums;
   letter-spacing: .06em;
   line-height: 1;
@@ -65,10 +68,10 @@ body { background: transparent; overflow: hidden; }
   position: relative;
   width: 100%;
   height: 72px;
-  border-radius: var(--bar-radius, 14px);
+  border-radius: 14px;
   background: var(--bg-color, #111114);
   box-shadow: 0 6px 28px rgba(0,0,0,.6);
-  overflow: hidden; /* clippe uniquement la fill */
+  overflow: hidden;
 }
 
 /* --- Fill --- */
@@ -104,18 +107,17 @@ body { background: transparent; overflow: hidden; }
   pointer-events: none;
 }
 
-/* Animations */
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: .45; }
 }
 @keyframes badgePop {
   0%   { transform: scale(1); }
-  35%  { transform: scale(1.25); }
-  65%  { transform: scale(.95); }
+  35%  { transform: scale(1.2); }
+  65%  { transform: scale(.97); }
   100% { transform: scale(1); }
 }
-.level-pop { animation: badgePop .5s cubic-bezier(.16,1,.3,1); }
+.level-pop { animation: badgePop .45s cubic-bezier(.16,1,.3,1); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
