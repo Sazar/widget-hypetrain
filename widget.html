@@ -4,17 +4,19 @@
 
 <div id="ht-widget" class="hidden">
 
-  <!-- Badge LVL : en dehors de la barre pour que border-radius soit visible -->
-  <div class="ht-info">
-    <div class="ht-badge">
-      <span class="ht-level" id="ht-level">LVL 1</span>
-    </div>
-    <span class="ht-timer" id="ht-timer">05:00</span>
+  <!-- Badge LVL : au-dessus de la barre, ancre sur le bord gauche -->
+  <div class="ht-badge">
+    <span class="ht-level" id="ht-level">LVL 1</span>
   </div>
 
-  <!-- Barre : overflow hidden pour clipper la fill, mais badge est dehors -->
+  <!-- Barre principale -->
   <div class="ht-bar">
     <div class="ht-fill" id="ht-fill"></div>
+
+    <!-- Timer : dans la barre, a gauche, aligne en bas -->
+    <span class="ht-timer" id="ht-timer">05:00</span>
+
+    <!-- Pourcentage : dans la barre, a droite -->
     <span class="ht-pct" id="ht-pct">0%</span>
   </div>
 

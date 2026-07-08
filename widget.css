@@ -11,55 +11,27 @@ body { background: transparent; overflow: hidden; }
 #ht-widget.hidden  { opacity: 0; transform: translateY(12px); pointer-events: none; }
 #ht-widget.visible { opacity: 1; transform: translateY(0);    pointer-events: auto; }
 
-/* --- Bloc info : superpose sur la barre --- */
-.ht-info {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 72px;
-  width: 72px;
-  display: flex;
+/* --- Badge LVL : juste au-dessus de la barre, collé à gauche --- */
+.ht-badge {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  z-index: 20;
-  pointer-events: none;
-}
-
-/* Badge : carré arrondi compact, meme border-radius que la barre */
-.ht-badge {
-  width: 60px;
-  height: 52px;
   background: var(--bg-color, #111114);
   border-radius: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 0 6px;
+  padding: 5px 14px;
+  margin-bottom: 6px;
+  pointer-events: none;
 }
 
 .ht-level {
   font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
   font-size: 16px;
   color: #fff;
-  letter-spacing: .04em;
+  letter-spacing: .05em;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
 }
-
-.ht-timer {
-  font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
-  font-size: 14px;
-  color: rgba(255,255,255,.85);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: .04em;
-  line-height: 1;
-  white-space: nowrap;
-  transition: color .3s;
-}
-.ht-timer.urgent { color: #FF9999; animation: pulse .75s ease-in-out infinite; }
 
 /* --- Barre principale --- */
 .ht-bar {
@@ -88,7 +60,26 @@ body { background: transparent; overflow: hidden; }
   background: linear-gradient(180deg, rgba(255,255,255,.13) 0%, transparent 100%);
 }
 
-/* --- Pourcentage --- */
+/* --- Timer : dans la barre, aligné en bas à gauche --- */
+.ht-timer {
+  position: absolute;
+  bottom: 10px;
+  left: 16px;
+  font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
+  font-size: 17px;
+  color: rgba(255,255,255,.85);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .05em;
+  line-height: 1;
+  white-space: nowrap;
+  z-index: 10;
+  text-shadow: 0 1px 6px rgba(0,0,0,.5);
+  pointer-events: none;
+  transition: color .3s;
+}
+.ht-timer.urgent { color: #FF9999; animation: pulse .75s ease-in-out infinite; }
+
+/* --- Pourcentage : dans la barre, aligné à droite au centre --- */
 .ht-pct {
   position: absolute;
   right: 18px;
@@ -105,6 +96,7 @@ body { background: transparent; overflow: hidden; }
   pointer-events: none;
 }
 
+/* Animations */
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: .45; }
