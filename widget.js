@@ -14,9 +14,13 @@ const state = {
 const widget  = document.getElementById('ht-widget');
 const bar     = widget.querySelector('.ht-bar');
 const fill    = document.getElementById('ht-fill');
+const infoEl  = fill.querySelector('.ht-info');
 const levelEl = document.getElementById('ht-level');
 const timerEl = document.getElementById('ht-timer');
 const pctEl   = document.getElementById('ht-pct');
+
+// Largeur reservee a gauche pour la bulle (px) — toujours visible
+const INFO_W = 88; // 10px left + 68px bloc + 10px marge droite
 
 // --- Couleurs depuis les Fields ---
 function applyColors(fields) {
@@ -36,7 +40,10 @@ function fmt(s) {
 function render() {
   const pct        = Math.min(Math.max(state.percent, 0), 100);
   const totalWidth = bar.offsetWidth;
-  const fillPx     = Math.round(totalWidth * pct / 100);
+  // La barre fill commence apres la zone info (INFO_W), puis grandit vers la droite
+  // On laisse toujours INFO_W de libre au debut (la bulle est en position absolute)
+  const availWidth = totalWidth - INFO_W;
+  const fillPx     = INFO_W + Math.round(availWidth * pct / 100);
 
   fill.style.width    = fillPx + 'px';
   pctEl.textContent   = Math.round(pct) + '%';
@@ -48,9 +55,9 @@ function setLevel(lvl) {
   const label = 'LVL ' + lvl;
   if (levelEl.textContent !== label) {
     levelEl.textContent = label;
-    levelEl.classList.remove('level-pop');
-    void levelEl.offsetWidth;
-    levelEl.classList.add('level-pop');
+    infoEl.classList.remove('level-pop');
+    void infoEl.offsetWidth;
+    infoEl.classList.add('level-pop');
   }
 }
 
@@ -104,7 +111,7 @@ function endTrain() {
       state.level    = 1;
       state.percent  = 0;
       state.timeLeft = state.totalTime;
-      fill.style.width    = '0px';
+      fill.style.width    = INFO_W + 'px';
       levelEl.textContent = 'LVL 1';
       pctEl.textContent   = '0%';
       timerEl.textContent = fmt(state.totalTime);

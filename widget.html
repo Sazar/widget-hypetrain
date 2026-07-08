@@ -3,21 +3,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
 
 <div id="ht-widget" class="hidden">
-
-  <!-- Zone gauche fixe : bulle LVL + timer en dessous -->
-  <div class="ht-left">
-    <div class="ht-badge">
-      <span class="ht-level" id="ht-level">LVL 1</span>
-    </div>
-    <span class="ht-timer" id="ht-timer">05:00</span>
-  </div>
-
-  <!-- Barre de progression -->
   <div class="ht-bar">
-    <div class="ht-fill" id="ht-fill"></div>
+
+    <!-- Partie remplie -->
+    <div class="ht-fill" id="ht-fill">
+      <!-- Bulle LVL + timer flottants a gauche dans la barre -->
+      <div class="ht-info">
+        <div class="ht-badge">
+          <span class="ht-level" id="ht-level">LVL 1</span>
+        </div>
+        <span class="ht-timer" id="ht-timer">05:00</span>
+      </div>
+    </div>
+
+    <!-- Partie vide -->
     <div class="ht-empty">
       <span class="ht-pct" id="ht-pct">0%</span>
     </div>
-  </div>
 
+  </div>
 </div>
