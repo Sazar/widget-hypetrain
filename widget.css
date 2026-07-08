@@ -11,25 +11,24 @@ body { background: transparent; overflow: hidden; }
 #ht-widget.hidden  { opacity: 0; transform: translateY(12px); pointer-events: none; }
 #ht-widget.visible { opacity: 1; transform: translateY(0);    pointer-events: auto; }
 
-/* --- Grande barre : conteneur relatif --- */
+/* --- Barre principale --- */
 .ht-bar {
   position: relative;
   width: 100%;
   height: 72px;
-  border-radius: 14px;
+  border-radius: var(--bar-radius, 14px);
   background: var(--bg-color, #111114);
   box-shadow: 0 6px 28px rgba(0,0,0,.6);
-  overflow: hidden; /* clip la fill */
+  overflow: hidden;
 }
 
-/* --- Fill : part de 0 et grandit vers la droite, couvre toute la hauteur --- */
+/* --- Fill --- */
 .ht-fill {
   position: absolute;
   top: 0; left: 0; bottom: 0;
   width: 0%;
   background: var(--bar-color, #9147FF);
   transition: width .75s cubic-bezier(.16,1,.3,1);
-  border-radius: 0; /* la barre clippe deja via overflow:hidden */
 }
 .ht-fill::after {
   content: '';
@@ -39,25 +38,26 @@ body { background: transparent; overflow: hidden; }
   background: linear-gradient(180deg, rgba(255,255,255,.13) 0%, transparent 100%);
 }
 
-/* --- Bloc info (bulle + timer) : absolu a gauche, z-index au-dessus de la fill --- */
+/* --- Bloc info (bulle + timer) --- */
 .ht-info {
   position: absolute;
-  left: 12px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   z-index: 10;
   pointer-events: none;
 }
 
+/* Badge LVL : meme border-radius que la barre, sans contour, fond = --bg-color */
 .ht-badge {
   background: var(--bg-color, #111114);
-  border: 2px solid rgba(255,255,255,.18);
-  border-radius: 9999px;
-  padding: 3px 11px;
+  border: none;
+  border-radius: var(--bar-radius, 14px);
+  padding: 5px 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,7 +65,7 @@ body { background: transparent; overflow: hidden; }
 
 .ht-level {
   font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   color: #fff;
   letter-spacing: .05em;
   text-transform: uppercase;
@@ -85,7 +85,7 @@ body { background: transparent; overflow: hidden; }
 }
 .ht-timer.urgent { color: #FF9999; animation: pulse .75s ease-in-out infinite; }
 
-/* --- Pourcentage : absolu a droite, toujours visible --- */
+/* --- Pourcentage --- */
 .ht-pct {
   position: absolute;
   right: 18px;

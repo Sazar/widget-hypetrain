@@ -18,14 +18,33 @@ const FONTS = {
   'Barlow Condensed': "'Barlow Condensed', Arial, sans-serif",
   'Bebas Neue':       "'Bebas Neue', Arial, sans-serif",
   'Russo One':        "'Russo One', Arial, sans-serif",
+  'Teko':             "'Teko', Arial, sans-serif",
+  'Oswald':           "'Oswald', Arial, sans-serif",
+  'Fjalla One':       "'Fjalla One', Arial, sans-serif",
+  'Passion One':      "'Passion One', Arial, sans-serif",
+  'Alfa Slab One':    "'Alfa Slab One', Georgia, serif",
+  'Righteous':        "'Righteous', Arial, sans-serif",
+  'Boogaloo':         "'Boogaloo', Arial, sans-serif",
+  'Audiowide':        "'Audiowide', monospace",
+  'Orbitron':         "'Orbitron', monospace",
+  'Exo 2':            "'Exo 2', Arial, sans-serif",
+  'Rajdhani':         "'Rajdhani', Arial, sans-serif",
+  'Chakra Petch':     "'Chakra Petch', monospace",
+  'Oxanium':          "'Oxanium', monospace",
+  'Share Tech Mono':  "'Share Tech Mono', monospace",
+  'Play':             "'Play', Arial, sans-serif",
+  'Kanit':            "'Kanit', Arial, sans-serif",
   'Black Han Sans':   "'Black Han Sans', Arial, sans-serif",
 };
 
 function applyFields(f) {
-  if (f.barColor)  document.documentElement.style.setProperty('--bar-color', f.barColor);
-  if (f.bgColor)   document.documentElement.style.setProperty('--bg-color',  f.bgColor);
+  const root = document.documentElement;
+  if (f.barColor)  root.style.setProperty('--bar-color',    f.barColor);
+  if (f.bgColor) {
+    root.style.setProperty('--bg-color', f.bgColor);
+  }
   if (f.fontChoice && FONTS[f.fontChoice])
-    document.documentElement.style.setProperty('--widget-font', FONTS[f.fontChoice]);
+    root.style.setProperty('--widget-font', FONTS[f.fontChoice]);
   if (f.trainDuration) {
     state.totalTime = parseInt(f.trainDuration) || 300;
     state.timeLeft  = state.totalTime;

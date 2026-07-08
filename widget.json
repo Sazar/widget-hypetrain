@@ -11,24 +11,40 @@
   },
   "fontChoice": {
     "type": "dropdown",
-    "label": "Police d'écriture",
+    "label": "Police d'\u00e9criture",
     "value": "Anton",
     "options": {
-      "Anton": "Anton (défaut)",
+      "Anton": "Anton",
       "Barlow Condensed": "Barlow Condensed",
       "Bebas Neue": "Bebas Neue",
       "Russo One": "Russo One",
+      "Teko": "Teko",
+      "Oswald": "Oswald",
+      "Fjalla One": "Fjalla One",
+      "Passion One": "Passion One",
+      "Alfa Slab One": "Alfa Slab One",
+      "Righteous": "Righteous",
+      "Boogaloo": "Boogaloo",
+      "Audiowide": "Audiowide",
+      "Orbitron": "Orbitron",
+      "Exo 2": "Exo 2",
+      "Rajdhani": "Rajdhani",
+      "Chakra Petch": "Chakra Petch",
+      "Oxanium": "Oxanium",
+      "Share Tech Mono": "Share Tech Mono",
+      "Play": "Play",
+      "Kanit": "Kanit",
       "Black Han Sans": "Black Han Sans"
     }
   },
   "trainDuration": {
     "type": "number",
-    "label": "Durée du Hype Train (secondes)",
+    "label": "Dur\u00e9e du Hype Train (secondes)",
     "value": 300
   },
   "previewMode": {
     "type": "checkbox",
-    "label": "Mode aperçu (simule un Hype Train)",
+    "label": "Mode aper\u00e7u (simule un Hype Train)",
     "value": false
   }
 }
