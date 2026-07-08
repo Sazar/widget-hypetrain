@@ -34,7 +34,6 @@ function fmt(s) {
 // --- Affichage ---
 function render() {
   const pct = Math.min(Math.max(state.percent, 0), 100);
-  // La barre fill prend `pct`% de la largeur totale, avec un min de 80px pour afficher LVL+timer
   fill.style.width    = pct + '%';
   pctEl.textContent   = Math.round(pct) + '%';
   timerEl.textContent = fmt(state.timeLeft);
