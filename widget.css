@@ -3,10 +3,9 @@
 body {
   background: transparent;
   overflow: hidden;
-  font-family: 'Barlow Condensed', 'Inter', Arial, sans-serif;
 }
 
-/* --- Conteneur widget --- */
+/* Widget */
 #ht-widget {
   position: fixed;
   bottom: 30px;
@@ -14,38 +13,87 @@ body {
   width: 500px;
   transition: opacity .45s ease, transform .45s cubic-bezier(.16,1,.3,1);
 }
-
 #ht-widget.hidden  { opacity: 0; transform: translateY(12px); pointer-events: none; }
 #ht-widget.visible { opacity: 1; transform: translateY(0);    pointer-events: auto; }
 
-/* --- Barre principale --- */
+/* Grande barre */
 .ht-bar {
-  position: relative;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   height: 72px;
   border-radius: 14px;
-  overflow: visible; /* pour que la bulle ne soit pas clippée */
+  background: var(--bg-color, #111114);
   box-shadow: 0 6px 28px rgba(0,0,0,.6);
-  background: #111114;
-  border-radius: 14px;
-  /* on cache ce qui dépasse uniquement sur l'axe de la barre */
-  clip-path: inset(0 round 14px);
+  overflow: hidden;
+  padding: 0;
 }
 
-/* --- Partie remplie --- */
-.ht-fill {
-  width: 0px;
-  background: var(--bar-color, #9147FF);
+/* Bloc info fixe à gauche */
+.ht-info {
   flex-shrink: 0;
-  position: relative;
-  transition: width .75s cubic-bezier(.16,1,.3,1);
-  /* garde les bords gauches arrondis */
-  border-radius: 14px 0 0 14px;
-  overflow: visible;
+  width: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  z-index: 5;
+  padding: 0 8px;
 }
 
-/* Reflet haut */
+/* Petite bulle LVL */
+.ht-badge {
+  background: var(--bg-color, #111114);
+  border: 2px solid rgba(255,255,255,.15);
+  border-radius: 9999px;
+  padding: 3px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ht-level {
+  font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ht-timer {
+  font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,.75);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .06em;
+  line-height: 1;
+  white-space: nowrap;
+  transition: color .3s;
+}
+.ht-timer.urgent { color: #FF9999; animation: pulse .75s ease-in-out infinite; }
+
+/* Zone de progression (flex: 1, relative) */
+.ht-track {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0 14px 14px 0;
+}
+
+/* Barre fill */
+.ht-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 0%;
+  background: var(--bar-color, #9147FF);
+  transition: width .75s cubic-bezier(.16,1,.3,1);
+  border-radius: 0;
+}
 .ht-fill::after {
   content: '';
   position: absolute;
@@ -53,114 +101,39 @@ body {
   height: 40%;
   background: linear-gradient(180deg, rgba(255,255,255,.12) 0%, transparent 100%);
   pointer-events: none;
-  border-radius: 14px 0 0 0;
 }
 
-/* --- Bloc info (bulle + timer) : positionne en absolu dans la barre, toujours visible --- */
-.ht-info {
+/* Pourcentage : toujours visible, en absolu à droite */
+.ht-pct {
   position: absolute;
-  left: 10px;
+  right: 18px;
   top: 50%;
   transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  z-index: 10;
-  /* largeur fixe pour ne jamais gêner le clip */
-  width: 68px;
-  pointer-events: none;
-}
-
-/* --- Petite bulle LVL --- */
-.ht-badge {
-  background: #111114;
-  border-radius: 9999px;
-  padding: 3px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-}
-
-.ht-level {
-  font-family: 'Barlow Condensed', Arial, sans-serif;
-  font-size: 17px;
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-/* --- Timer sous la bulle, dans la barre --- */
-.ht-timer {
-  font-family: 'Barlow Condensed', Arial, sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: rgba(255,255,255,.8);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: .06em;
-  line-height: 1;
-  white-space: nowrap;
-  transition: color .3s ease;
-}
-
-.ht-timer.urgent {
-  color: #FF9999;
-  animation: pulse .75s ease-in-out infinite;
-}
-
-/* --- Partie vide --- */
-.ht-empty {
-  flex: 1;
-  background: #111114;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 22px;
-  min-width: 0;
-}
-
-.ht-pct {
-  font-family: 'Barlow Condensed', Arial, sans-serif;
-  font-size: 32px;
+  font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
+  font-size: 34px;
   font-weight: 900;
   color: #fff;
   font-variant-numeric: tabular-nums;
   letter-spacing: .02em;
   white-space: nowrap;
-  position: relative;
-  z-index: 2;
+  z-index: 4;
+  /* Ombre pour lisibilite sur le fond colore */
+  text-shadow: 0 1px 6px rgba(0,0,0,.55), 0 0 16px rgba(0,0,0,.4);
 }
 
-/* --- Animations --- */
+/* Animations */
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50%       { opacity: .45; }
 }
-
-@keyframes levelPop {
-  0%   { transform: scale(1) translateY(-50%); }
-  35%  { transform: scale(1.2) translateY(-50%); }
-  65%  { transform: scale(.95) translateY(-50%); }
-  100% { transform: scale(1) translateY(-50%); }
-}
-
-.level-pop .ht-badge {
-  animation: badgePop .5s cubic-bezier(.16,1,.3,1);
-}
-
 @keyframes badgePop {
   0%   { transform: scale(1); }
-  35%  { transform: scale(1.2); }
+  35%  { transform: scale(1.25); }
   65%  { transform: scale(.95); }
   100% { transform: scale(1); }
 }
+.level-pop { animation: badgePop .5s cubic-bezier(.16,1,.3,1); }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
-  }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }

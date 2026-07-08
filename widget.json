@@ -1,17 +1,34 @@
 {
   "barColor": {
     "type": "colorpicker",
-    "label": "Couleur de la barre",
+    "label": "Couleur de la barre de progression",
     "value": "#9147FF"
+  },
+  "bgColor": {
+    "type": "colorpicker",
+    "label": "Couleur du fond de la barre",
+    "value": "#111114"
+  },
+  "fontChoice": {
+    "type": "dropdown",
+    "label": "Police d'écriture",
+    "value": "Anton",
+    "options": {
+      "Anton": "Anton (défaut)",
+      "Barlow Condensed": "Barlow Condensed",
+      "Bebas Neue": "Bebas Neue",
+      "Russo One": "Russo One",
+      "Black Han Sans": "Black Han Sans"
+    }
   },
   "trainDuration": {
     "type": "number",
-    "label": "Duree du Hype Train (secondes)",
+    "label": "Durée du Hype Train (secondes)",
     "value": 300
   },
   "previewMode": {
     "type": "checkbox",
-    "label": "Mode apercu (simule un Hype Train)",
+    "label": "Mode aperçu (simule un Hype Train)",
     "value": false
   }
 }

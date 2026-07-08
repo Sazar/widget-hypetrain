@@ -1,23 +1,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+<link id="font-link" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@700;900&family=Bebas+Neue&family=Black+Han+Sans&family=Russo+One&display=swap" rel="stylesheet">
 
 <div id="ht-widget" class="hidden">
   <div class="ht-bar">
 
-    <!-- Partie remplie -->
-    <div class="ht-fill" id="ht-fill">
-      <!-- Bulle LVL + timer flottants a gauche dans la barre -->
-      <div class="ht-info">
-        <div class="ht-badge">
-          <span class="ht-level" id="ht-level">LVL 1</span>
-        </div>
-        <span class="ht-timer" id="ht-timer">05:00</span>
+    <!-- Bloc info : bulle LVL + timer, toujours visible à gauche -->
+    <div class="ht-info">
+      <div class="ht-badge">
+        <span class="ht-level" id="ht-level">LVL 1</span>
       </div>
+      <span class="ht-timer" id="ht-timer">05:00</span>
     </div>
 
-    <!-- Partie vide -->
-    <div class="ht-empty">
+    <!-- Zone de progression -->
+    <div class="ht-track">
+      <div class="ht-fill" id="ht-fill"></div>
+      <!-- % toujours superposé au-dessus, aligné à droite -->
       <span class="ht-pct" id="ht-pct">0%</span>
     </div>
 
