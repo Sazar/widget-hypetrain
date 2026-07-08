@@ -11,7 +11,6 @@ body { background: transparent; overflow: hidden; }
 #ht-widget.hidden  { opacity: 0; transform: translateY(12px); pointer-events: none; }
 #ht-widget.visible { opacity: 1; transform: translateY(0);    pointer-events: auto; }
 
-/* Barre : overflow visible pour ne pas clipper le badge */
 .ht-bar {
   position: relative;
   width: 100%;
@@ -20,11 +19,8 @@ body { background: transparent; overflow: hidden; }
   background: var(--bg-color, #111114);
   box-shadow: 0 6px 28px rgba(0,0,0,.6);
   overflow: visible;
-  display: flex;
-  align-items: stretch;
 }
 
-/* Fill clippe par border-radius uniquement */
 .ht-fill {
   position: absolute;
   top: 0; left: 0; bottom: 0;
@@ -44,21 +40,20 @@ body { background: transparent; overflow: hidden; }
   background: linear-gradient(180deg, rgba(255,255,255,.13) 0%, transparent 100%);
 }
 
-/* Colonne gauche : flex column, LVL haut, timer bas */
+/* Groupe LVL + timer : centre verticalement, colle a gauche */
 .ht-left {
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 8px 10px;
+  align-items: flex-start;
+  gap: 4px;
   z-index: 10;
   pointer-events: none;
 }
 
-/* Badge LVL : meme border-radius que la barre */
 .ht-badge {
   background: var(--bg-color, #111114);
   border-radius: 14px;
@@ -66,7 +61,6 @@ body { background: transparent; overflow: hidden; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  align-self: flex-start;
 }
 
 .ht-level {
@@ -79,7 +73,6 @@ body { background: transparent; overflow: hidden; }
   white-space: nowrap;
 }
 
-/* Timer sous le badge */
 .ht-timer {
   font-family: var(--widget-font, 'Anton'), Arial, sans-serif;
   font-size: 17px;
@@ -88,13 +81,12 @@ body { background: transparent; overflow: hidden; }
   letter-spacing: .05em;
   line-height: 1;
   white-space: nowrap;
+  padding-left: 4px;
   text-shadow: 0 1px 6px rgba(0,0,0,.5);
   transition: color .3s;
-  align-self: flex-start;
 }
 .ht-timer.urgent { color: #FF9999; animation: pulse .75s ease-in-out infinite; }
 
-/* Pourcentage centre-droit */
 .ht-pct {
   position: absolute;
   right: 18px;
@@ -116,10 +108,10 @@ body { background: transparent; overflow: hidden; }
   50%       { opacity: .45; }
 }
 @keyframes badgePop {
-  0%   { transform: scale(1); }
-  35%  { transform: scale(1.15); }
-  65%  { transform: scale(.97); }
-  100% { transform: scale(1); }
+  0%   { transform: translateY(-50%) scale(1); }
+  35%  { transform: translateY(-50%) scale(1.15); }
+  65%  { transform: translateY(-50%) scale(.97); }
+  100% { transform: translateY(-50%) scale(1); }
 }
 .level-pop { animation: badgePop .45s cubic-bezier(.16,1,.3,1); }
 
