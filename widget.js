@@ -12,10 +12,14 @@ const state = {
 };
 
 const widget  = document.getElementById('ht-widget');
+const bar     = widget.querySelector('.ht-bar');
 const fill    = document.getElementById('ht-fill');
 const levelEl = document.getElementById('ht-level');
 const timerEl = document.getElementById('ht-timer');
 const pctEl   = document.getElementById('ht-pct');
+
+// Largeur disponible pour la progression (barre totale - padding gauche bulle)
+const BADGE_WIDTH = 96; // doit correspondre au padding-left de .ht-bar dans le CSS
 
 // --- Couleurs depuis les Fields ---
 function applyColors(fields) {
@@ -33,8 +37,11 @@ function fmt(s) {
 
 // --- Affichage ---
 function render() {
-  const pct = Math.min(Math.max(state.percent, 0), 100);
-  fill.style.width    = pct + '%';
+  const pct        = Math.min(Math.max(state.percent, 0), 100);
+  const totalWidth = bar.offsetWidth - BADGE_WIDTH; // largeur utile
+  const fillPx     = Math.round(totalWidth * pct / 100);
+
+  fill.style.width    = fillPx + 'px';
   pctEl.textContent   = Math.round(pct) + '%';
   timerEl.textContent = fmt(state.timeLeft);
   timerEl.classList.toggle('urgent', state.timeLeft <= 30);
@@ -100,7 +107,7 @@ function endTrain() {
       state.level    = 1;
       state.percent  = 0;
       state.timeLeft = state.totalTime;
-      fill.style.width    = '0%';
+      fill.style.width    = '0px';
       levelEl.textContent = 'LVL 1';
       pctEl.textContent   = '0%';
       timerEl.textContent = fmt(state.totalTime);

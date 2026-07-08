@@ -3,23 +3,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
 
 <div id="ht-widget" class="hidden">
-  <div class="ht-bar">
 
-    <!-- Partie remplie -->
-    <div class="ht-fill" id="ht-fill">
-
-      <!-- Bulle LVL + timer -->
-      <div class="ht-badge">
-        <span class="ht-level" id="ht-level">LVL 1</span>
-        <span class="ht-timer" id="ht-timer">05:00</span>
-      </div>
-
-    </div>
-
-    <!-- Partie vide - pourcentage -->
-    <div class="ht-empty">
-      <span class="ht-pct" id="ht-pct">69%</span>
-    </div>
-
+  <!-- Bulle LVL + timer (positionnee par-dessus la barre, a gauche) -->
+  <div class="ht-badge">
+    <span class="ht-level" id="ht-level">LVL 1</span>
+    <span class="ht-timer" id="ht-timer">05:00</span>
   </div>
+
+  <!-- Barre de progression -->
+  <div class="ht-bar">
+    <div class="ht-fill" id="ht-fill"></div>
+    <div class="ht-empty">
+      <span class="ht-pct" id="ht-pct">0%</span>
+    </div>
+  </div>
+
 </div>
