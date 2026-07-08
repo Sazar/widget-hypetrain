@@ -11,7 +11,6 @@ body { background: transparent; overflow: hidden; }
 #ht-widget.hidden  { opacity: 0; transform: translateY(12px); pointer-events: none; }
 #ht-widget.visible { opacity: 1; transform: translateY(0);    pointer-events: auto; }
 
-/* Barre principale : 72px de haut, border-radius 14px */
 .ht-bar {
   position: relative;
   width: 100%;
@@ -41,7 +40,6 @@ body { background: transparent; overflow: hidden; }
   background: linear-gradient(180deg, rgba(255,255,255,.13) 0%, transparent 100%);
 }
 
-/* Groupe LVL + timer : positions verrouillees */
 .ht-left {
   position: absolute;
   top: 50%;
@@ -55,16 +53,9 @@ body { background: transparent; overflow: hidden; }
   pointer-events: none;
 }
 
-/*
-  Badge : hauteur 28px
-  La barre fait 72px avec border-radius 14px.
-  Ratio radius/height sur la barre = 14/72 = 0.194
-  Applique le meme ratio au badge : 28 * 0.194 = ~5.5px
-  => border-radius: 5px pour avoir visuellement la meme forme
-*/
 .ht-badge {
   background: var(--bg-color, #111114);
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 6px 18px;
   display: inline-flex;
   align-items: center;
