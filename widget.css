@@ -1,6 +1,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: transparent; overflow: hidden; }
 
+/* Widget : conteneur relatif global */
 #ht-widget {
   position: fixed;
   bottom: 30px;
@@ -11,53 +12,27 @@ body { background: transparent; overflow: hidden; }
 #ht-widget.hidden  { opacity: 0; transform: translateY(12px); pointer-events: none; }
 #ht-widget.visible { opacity: 1; transform: translateY(0);    pointer-events: auto; }
 
-/* --- Barre principale --- */
-.ht-bar {
-  position: relative;
-  width: 100%;
-  height: 72px;
-  border-radius: var(--bar-radius, 14px);
-  background: var(--bg-color, #111114);
-  box-shadow: 0 6px 28px rgba(0,0,0,.6);
-  overflow: hidden;
-}
-
-/* --- Fill --- */
-.ht-fill {
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: 0%;
-  background: var(--bar-color, #9147FF);
-  transition: width .75s cubic-bezier(.16,1,.3,1);
-}
-.ht-fill::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 40%;
-  background: linear-gradient(180deg, rgba(255,255,255,.13) 0%, transparent 100%);
-}
-
-/* --- Bloc info (bulle + timer) --- */
+/* --- Badge LVL + timer : positionne par-dessus la barre via position absolute sur le widget --- */
 .ht-info {
   position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  /* aligne verticalement au centre de la barre (height 72px) */
+  top: 0;
+  left: 8px;
+  height: 72px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 3px;
-  z-index: 10;
+  z-index: 20;
   pointer-events: none;
 }
 
-/* Badge LVL : meme border-radius que la barre, sans contour, fond = --bg-color */
+/* Badge : meme border-radius que la barre, fond = couleur de fond barre, SANS overflow:hidden au-dessus */
 .ht-badge {
   background: var(--bg-color, #111114);
-  border: none;
   border-radius: var(--bar-radius, 14px);
-  padding: 5px 14px;
+  padding: 6px 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,6 +59,33 @@ body { background: transparent; overflow: hidden; }
   transition: color .3s;
 }
 .ht-timer.urgent { color: #FF9999; animation: pulse .75s ease-in-out infinite; }
+
+/* --- Barre principale --- */
+.ht-bar {
+  position: relative;
+  width: 100%;
+  height: 72px;
+  border-radius: var(--bar-radius, 14px);
+  background: var(--bg-color, #111114);
+  box-shadow: 0 6px 28px rgba(0,0,0,.6);
+  overflow: hidden; /* clippe uniquement la fill */
+}
+
+/* --- Fill --- */
+.ht-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 0%;
+  background: var(--bar-color, #9147FF);
+  transition: width .75s cubic-bezier(.16,1,.3,1);
+}
+.ht-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255,255,255,.13) 0%, transparent 100%);
+}
 
 /* --- Pourcentage --- */
 .ht-pct {
