@@ -1,11 +1,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link id="font-link" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@700;900&family=Bebas+Neue&family=Black+Han+Sans&family=Russo+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@700;900&family=Bebas+Neue&family=Russo+One&family=Black+Han+Sans&display=swap" rel="stylesheet">
 
 <div id="ht-widget" class="hidden">
   <div class="ht-bar">
 
-    <!-- Bloc info : bulle LVL + timer, toujours visible à gauche -->
+    <!-- Barre de fond + fill -->
+    <div class="ht-fill" id="ht-fill"></div>
+
+    <!-- Bulle LVL + timer : absolue a gauche, par-dessus tout -->
     <div class="ht-info">
       <div class="ht-badge">
         <span class="ht-level" id="ht-level">LVL 1</span>
@@ -13,12 +16,8 @@
       <span class="ht-timer" id="ht-timer">05:00</span>
     </div>
 
-    <!-- Zone de progression -->
-    <div class="ht-track">
-      <div class="ht-fill" id="ht-fill"></div>
-      <!-- % toujours superposé au-dessus, aligné à droite -->
-      <span class="ht-pct" id="ht-pct">0%</span>
-    </div>
+    <!-- Pourcentage : absolu a droite, par-dessus tout -->
+    <span class="ht-pct" id="ht-pct">0%</span>
 
   </div>
 </div>
