@@ -18,9 +18,6 @@ const levelEl = document.getElementById('ht-level');
 const timerEl = document.getElementById('ht-timer');
 const pctEl   = document.getElementById('ht-pct');
 
-// Largeur disponible pour la progression (barre totale - padding gauche bulle)
-const BADGE_WIDTH = 96; // doit correspondre au padding-left de .ht-bar dans le CSS
-
 // --- Couleurs depuis les Fields ---
 function applyColors(fields) {
   document.documentElement.style.setProperty('--bar-color', fields.barColor || '#9147FF');
@@ -38,7 +35,7 @@ function fmt(s) {
 // --- Affichage ---
 function render() {
   const pct        = Math.min(Math.max(state.percent, 0), 100);
-  const totalWidth = bar.offsetWidth - BADGE_WIDTH; // largeur utile
+  const totalWidth = bar.offsetWidth;
   const fillPx     = Math.round(totalWidth * pct / 100);
 
   fill.style.width    = fillPx + 'px';

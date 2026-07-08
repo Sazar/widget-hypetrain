@@ -12,46 +12,49 @@ body {
   bottom: 30px;
   left: 30px;
   width: 480px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   transition: opacity .45s ease, transform .45s cubic-bezier(.16,1,.3,1);
 }
 
 #ht-widget.hidden  { opacity: 0; transform: translateY(12px); pointer-events: none; }
 #ht-widget.visible { opacity: 1; transform: translateY(0);    pointer-events: auto; }
 
-/* --- Bulle LVL : flottante par-dessus la barre --- */
-.ht-badge {
-  position: absolute;
-  left: 8px;
-  /* centree verticalement sur la hauteur de la barre (68px) */
-  bottom: 30px; /* meme bottom que le widget */
-  height: 68px;
+/* --- Zone gauche : bulle + timer --- */
+.ht-left {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* --- Bulle LVL uniquement --- */
+.ht-badge {
   background: #111114;
   border-radius: 9999px;
-  padding: 0 16px;
-  gap: 2px;
-  z-index: 10;
-  pointer-events: none;
-  min-width: 80px;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ht-level {
   font-family: 'Barlow Condensed', Arial, sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 900;
   color: #fff;
-  letter-spacing: .04em;
+  letter-spacing: .05em;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
 }
 
+/* --- Timer sous la bulle --- */
 .ht-timer {
   font-family: 'Barlow Condensed', Arial, sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: rgba(255,255,255,.75);
   font-variant-numeric: tabular-nums;
@@ -68,28 +71,25 @@ body {
 
 /* --- Barre principale --- */
 .ht-bar {
+  flex: 1;
   display: flex;
   align-items: stretch;
   height: 68px;
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 6px 28px rgba(0,0,0,.6);
-  /* padding gauche pour laisser la place a la bulle */
-  padding-left: 96px;
   background: #111114;
+  min-width: 0;
 }
 
 /* --- Partie remplie --- */
 .ht-fill {
-  /* width pilotée par JS en px absolu, pas en % */
   width: 0px;
   background: var(--bar-color, #9147FF);
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
   transition: width .75s cubic-bezier(.16,1,.3,1);
-  /* bord gauche arrondi pour continuite avec la bulle */
-  border-radius: 0;
 }
 
 /* Reflet haut */
@@ -121,7 +121,6 @@ body {
   font-variant-numeric: tabular-nums;
   letter-spacing: .02em;
   white-space: nowrap;
-  /* toujours visible : z-index au-dessus de la barre fill */
   position: relative;
   z-index: 2;
 }
